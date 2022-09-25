@@ -10,8 +10,8 @@ rule link
 
 build ./main.o: compile ./main.c
 build ./ball.o: compile ./ball.c
-build ./player.o: compile ./player.c
-build $target: link ./main.o ./ball.o ./player.o
+build ./paddle.o: compile ./paddle.c
+build $target: link ./main.o ./ball.o ./paddle.o
 
 build all: phony $target
 

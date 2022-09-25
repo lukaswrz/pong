@@ -5,16 +5,16 @@
 #include <string.h>
 
 #include "ball.h"
-#include "player.h"
+#include "paddle.h"
 
 int main()
 {
     InitWindow(640, 480, "pong");
     SetTargetFPS(30);
 
-    struct player players[] = {
-        player_create(0.0f, ((float)GetScreenHeight() - PLAYER_HEIGHT) / 2.0f, KEY_W, KEY_S),
-        player_create((float)GetScreenWidth() - (float)PLAYER_WIDTH, ((float)GetScreenHeight() - (float)PLAYER_HEIGHT) / 2.0f, KEY_UP, KEY_DOWN),
+    struct paddle paddles[] = {
+        paddle_create(0.0f, ((float)GetScreenHeight() - PLAYER_HEIGHT) / 2.0f, KEY_W, KEY_S),
+        paddle_create((float)GetScreenWidth() - (float)PLAYER_WIDTH, ((float)GetScreenHeight() - (float)PLAYER_HEIGHT) / 2.0f, KEY_UP, KEY_DOWN),
     };
 
     struct ball ball = ball_create((float)GetScreenWidth() / 2.0f, (float)GetScreenHeight() / 2.0f, 5.0f);
@@ -40,26 +40,26 @@ int main()
         ball.x += ball.velocity.x * GetFrameTime();
         ball.y += ball.velocity.y * GetFrameTime();
 
-        for (size_t i = 0; i < sizeof players / sizeof(struct player); i++)
+        for (size_t i = 0; i < sizeof paddles / sizeof(struct paddle); i++)
         {
-            players[i].accel = 0.0f;
+            paddles[i].accel = 0.0f;
 
-            if ((int)players[i].rect.y >= 0 && player_is_up(&players[i]))
+            if ((int)paddles[i].rect.y >= 0 && paddle_is_up(&paddles[i]))
             {
-                players[i].rect.y -= players[i].speed * GetFrameTime();
-                players[i].accel -= 50.0f;
+                paddles[i].rect.y -= paddles[i].speed * GetFrameTime();
+                paddles[i].accel -= 50.0f;
             }
 
-            if ((int)players[i].rect.y + (int)players[i].rect.height <= GetScreenHeight() && player_is_down(&players[i]))
+            if ((int)paddles[i].rect.y + (int)paddles[i].rect.height <= GetScreenHeight() && paddle_is_down(&paddles[i]))
             {
-                players[i].rect.y += players[i].speed * GetFrameTime();
-                players[i].accel += 50.0f;
+                paddles[i].rect.y += paddles[i].speed * GetFrameTime();
+                paddles[i].accel += 50.0f;
             }
 
-            if (CheckCollisionCircleRec((Vector2){.x = ball.x, .y = ball.y}, ball.radius, players[i].rect))
+            if (CheckCollisionCircleRec((Vector2){.x = ball.x, .y = ball.y}, ball.radius, paddles[i].rect))
             {
                 ball.velocity.x *= -1.0f;
-                ball.velocity.y = BALL_SPEED * -sin((double)((((players[i].rect.y + (players[i].rect.height / 2)) - ball.y) / (players[i].rect.height / 2)) * 75));
+                ball.velocity.y = BALL_SPEED * -sin((double)((((paddles[i].rect.y + (paddles[i].rect.height / 2)) - ball.y) / (paddles[i].rect.height / 2)) * 75));
             }
         }
 
@@ -67,9 +67,9 @@ int main()
         {
             ClearBackground(BLACK);
 
-            for (size_t i = 0; i < sizeof players / sizeof(struct player); i++)
+            for (size_t i = 0; i < sizeof paddles / sizeof(struct paddle); i++)
             {
-                DrawRectangleRec(players[i].rect, WHITE);
+                DrawRectangleRec(paddles[i].rect, WHITE);
             }
 
             DrawCircleV((Vector2){.x = ball.x, .y = ball.y}, ball.radius, WHITE);

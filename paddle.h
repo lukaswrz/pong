@@ -7,7 +7,7 @@
 #define PLAYER_SPEED  250.0f
 #define PLAYER_ACCEL  2.0f
 
-struct player
+struct paddle
 {
     Rectangle rect;
     float speed;
@@ -16,6 +16,6 @@ struct player
     KeyboardKey down;
 };
 
-struct player player_create(float x, float y, KeyboardKey up, KeyboardKey down);
-int player_is_up(struct player *player);
-int player_is_down(struct player *player);
+struct paddle paddle_create(float x, float y, KeyboardKey up, KeyboardKey down);
+int paddle_is_up(struct paddle *paddle);
+int paddle_is_down(struct paddle *paddle);
