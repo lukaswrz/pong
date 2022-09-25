@@ -43,10 +43,7 @@ int main()
         for (size_t i = 0; i < sizeof players / sizeof(struct player); i++)
         {
             players[i].accel = 0.0f;
-        }
 
-        for (size_t i = 0; i < sizeof players / sizeof(struct player); i++)
-        {
             if ((int)players[i].rect.y >= 0 && player_is_up(&players[i]))
             {
                 players[i].rect.y -= players[i].speed * GetFrameTime();
@@ -58,10 +55,7 @@ int main()
                 players[i].rect.y += players[i].speed * GetFrameTime();
                 players[i].accel += 50.0f;
             }
-        }
 
-        for (size_t i = 0; i < sizeof players / sizeof(struct player); i++)
-        {
             if (CheckCollisionCircleRec((Vector2){.x = ball.x, .y = ball.y}, ball.radius, players[i].rect))
             {
                 ball.speed.x *= -1.0f;
