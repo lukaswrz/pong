@@ -1,0 +1,16 @@
+# vim:set tabstop=2 shiftwidth=2 expandtab:
+
+include config.ninja
+
+rule compile
+  command = $cc $cflags -c -o $out $in
+
+rule link
+  command = $cc $cflags -o $out $in $ldflags $ldlibs
+
+build ./main.o: compile ./main.c
+build $target: link ./main.o
+
+build all: phony $target
+
+default all

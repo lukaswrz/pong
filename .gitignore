@@ -1,0 +1,4 @@
+pong
+*.o
+.ninja_deps
+.ninja_log
