@@ -1,5 +1,6 @@
 #include <limits.h>
 #include <math.h>
+#include <raylib.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,7 +11,7 @@
 int main()
 {
     InitWindow(640, 480, "pong");
-    SetTargetFPS(30);
+    SetWindowState(FLAG_VSYNC_HINT);
 
     struct paddle paddles[] = {
         paddle_create(0.0f, ((float)GetScreenHeight() - PLAYER_HEIGHT) / 2.0f, KEY_W, KEY_S),
