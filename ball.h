@@ -13,7 +13,7 @@ struct ball
     {
         float x;
         float y;
-    } speed;
+    } velocity;
 };
 
 struct ball ball_create(float x, float y, float radius);

@@ -23,7 +23,7 @@ int main()
     {
         if (ball.y + ball.radius > (float)GetScreenHeight() || ball.y - ball.radius < 0.0f)
         {
-            ball.speed.y *= -1;
+            ball.velocity.y *= -1;
         }
 
         if (ball.x + ball.radius > (float)GetScreenWidth())
@@ -37,8 +37,8 @@ int main()
             break;
         }
 
-        ball.x += ball.speed.x * GetFrameTime();
-        ball.y += ball.speed.y * GetFrameTime();
+        ball.x += ball.velocity.x * GetFrameTime();
+        ball.y += ball.velocity.y * GetFrameTime();
 
         for (size_t i = 0; i < sizeof players / sizeof(struct player); i++)
         {
@@ -58,8 +58,8 @@ int main()
 
             if (CheckCollisionCircleRec((Vector2){.x = ball.x, .y = ball.y}, ball.radius, players[i].rect))
             {
-                ball.speed.x *= -1.0f;
-                ball.speed.y = BALL_SPEED * -sin((double)((((players[i].rect.y + (players[i].rect.height / 2)) - ball.y) / (players[i].rect.height / 2)) * 75));
+                ball.velocity.x *= -1.0f;
+                ball.velocity.y = BALL_SPEED * -sin((double)((((players[i].rect.y + (players[i].rect.height / 2)) - ball.y) / (players[i].rect.height / 2)) * 75));
             }
         }
 
