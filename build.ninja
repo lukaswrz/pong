@@ -9,7 +9,9 @@ rule link
   command = $cc $cflags -o $out $in $ldflags $ldlibs
 
 build ./main.o: compile ./main.c
-build $target: link ./main.o
+build ./ball.o: compile ./ball.c
+build ./player.o: compile ./player.c
+build $target: link ./main.o ./ball.o ./player.o
 
 build all: phony $target
 
